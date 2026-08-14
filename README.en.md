@@ -72,4 +72,4 @@ DSH Settings → "计费" section (or the expanded sidebar pill panel):
 
 ## License
 
-[Apache-2.0](LICENSE)
+[MIT](LICENSE)

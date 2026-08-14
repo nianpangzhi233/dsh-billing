@@ -65,4 +65,4 @@ DSH 设置 → 「计费」分段（或侧边栏底部 pill 展开面板）：
 
 ## 许可
 
-[Apache-2.0](LICENSE)
+[MIT](LICENSE)
