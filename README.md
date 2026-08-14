@@ -22,7 +22,7 @@ slots 系统实现，不修改 DSH 源码。
 
 ```sh
 # 从仓库安装（开发调试）
-git clone https://github.com/<owner>/dsh-billing.git
+git clone https://github.com/nianpangzhi233/dsh-billing.git
 cd dsh-billing
 # 将包放入 profile node_modules 并在 profile package.json 的
 # dsh.profile.bundles 登记 "dsh-billing"，然后重启 dsh web：
