@@ -1,5 +1,7 @@
 # dsh-billing — DSH Web GUI 实时计费监控插件
 
+> [English](README.en.md) · 中文
+
 为 [DeepSeek Harness](https://github.com/deepseek-ai/dsh)（DSH）Web GUI 定制的计费
 监控插件：实时统计本机模型调用用量与费用，按供应商/模型单价计费（DeepSeek v4
 峰谷价），支持余额锚定、官方单价同步与账本持久化。全部通过官方接口与客户端
@@ -20,17 +22,20 @@ slots 系统实现，不修改 DSH 源码。
 
 ## 安装
 
+本包为**纯 JS、无构建步骤**（`lib/` 即发布产物），git 安装即可用，无需
+`prepare` 脚本、无需构建授权（符合官方打包规范）：
+
 ```sh
-# 从仓库安装（开发调试）
-git clone https://github.com/nianpangzhi233/dsh-billing.git
-cd dsh-billing
-# 将包放入 profile node_modules 并在 profile package.json 的
-# dsh.profile.bundles 登记 "dsh-billing"，然后重启 dsh web：
-#   dsh web
+# 从本仓库安装
+dsh plugin --profile web add github:nianpangzhi233/dsh-billing
+
+# 或本地 checkout / tarball
+dsh plugin --profile web add ./dsh-billing
+dsh plugin --profile web add ./dsh-billing-0.1.0.tgz
 ```
 
-安装后**重启 `dsh web`**：侧边栏底部出现余额 pill（设置按钮上方），
-Agent 提示词中自动出现 `billing_balance` 工具说明。
+安装后**重启 `dsh web`**：侧边栏底部出现余额 pill（设置按钮上方）、
+DSH 设置中出现「计费」分段，Agent 提示词中自动出现 `billing_balance` 工具说明。
 
 ## 配置
 
