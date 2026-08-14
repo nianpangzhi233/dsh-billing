@@ -20,6 +20,12 @@ slots 系统实现，不修改 DSH 源码。
 | Agent 工具 | `billing_balance`：查询余额、费用、token 用量与按模型明细 |
 | 持久化 | 账本 JSON 原子写入工作区，DSH 重启后自动恢复（余额、单价、流水） |
 
+## 截图
+
+![侧边栏余额 pill 与概览面板](docs/screenshots/demo-1.png)
+
+![计费监控界面演示](docs/screenshots/demo-2.png)
+
 ## 安装
 
 本包为**纯 JS、无构建步骤**（`lib/` 即发布产物），git 安装即可用，无需

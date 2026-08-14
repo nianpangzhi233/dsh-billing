@@ -19,6 +19,12 @@ interfaces and the client slots system — no DSH source changes.
 | Agent tool | `billing_balance`: query balance, cost, token usage and per-model breakdown |
 | Persistence | Ledger JSON atomically written in the workspace; auto-restored after DSH restart (balance, prices, ledger) |
 
+## Screenshots
+
+![Sidebar balance pill and overview panel](docs/screenshots/demo-1.png)
+
+![Billing monitor UI](docs/screenshots/demo-2.png)
+
 ## Installation
 
 The package ships pre-built plain JS (`lib/`) with **no build step**, so a git
