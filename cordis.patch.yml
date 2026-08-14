@@ -1,0 +1,8 @@
+# dsh-billing bundle patch: inserts the dual-face plugin row into the web
+# profile roster. The node half (exports ".") runs in the host process
+# (llm/stream metering, /api/dsh-billing routes, the billing_balance tool),
+# and the `dsh.client` declaration in package.json makes the browser half
+# (exports "./client", served at /plugins/<id>/client.js) load in the web GUI.
+- insert:
+    - id: billing
+      name: 'dsh-billing'
