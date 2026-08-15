@@ -13,7 +13,7 @@ interfaces and the client slots system — no DSH source changes.
 | Realtime balance | Balance pill at the sidebar footer, refreshes every 2 seconds; status dot (healthy / low / exhausted, blinks on alert) |
 | Overview panel | Click the pill to expand it inside the sidebar: spent / calls / input / output tokens plus recent ledger rows (peak/off-peak tags); auto-collapses when the sidebar collapses; in the collapsed rail the pill becomes a dot that expands the sidebar on click |
 | Provider pricing | Matching order: provider+model → same model under any provider → provider default → global default. DeepSeek v4 models use peak/off-peak pricing from 08-17 (peak = Beijing 9–12, 14–18; off-peak at half price); cache-hit input is billed at the low rate |
-| Balance anchoring | Paste the official balance from platform.deepseek.com to calibrate, then keep deducting local usage |
+| Official balance sync | Fill in a DeepSeek API key and pull the official balance in one click via `GET /user/balance` (total / granted / topped-up) with automatic anchoring; manual paste anchoring also supported |
 | Official sync | One-click fetch of DeepSeek official model prices (built-in base prices + persisted overrides merged) |
 | Settings page | DSH Settings → "计费" (billing) section: balance, low-balance threshold, default prices, per-provider price table, data management |
 | Agent tool | `billing_balance`: query balance, cost, token usage and per-model breakdown |
@@ -47,8 +47,10 @@ the agent gains the `billing_balance` tool.
 
 DSH Settings → "计费" section (or the expanded sidebar pill panel):
 
-- **Balance**: paste the official balance to anchor, initial balance,
-  low-balance alert threshold (default ¥20)
+- **Balance**: DeepSeek API key (sk-…) for one-click official balance sync
+  (total / granted / topped-up; the endpoint is rate-limited to ~1 req/min),
+  manual paste anchoring, initial balance, low-balance alert threshold
+  (default ¥20)
 - **Pricing**: default price for unknown providers (¥ / 1M tokens) plus a
   per-provider/model price table (add/remove rows); "sync official prices"
   fetches the DeepSeek price list in one click
@@ -58,9 +60,9 @@ DSH Settings → "计费" section (or the expanded sidebar pill panel):
 ## Data
 
 - Ledger file: `.dsh-billing-ledger.json` (workspace directory preferred,
-  spRoot fallback), v2 shape: `config` (initial balance / threshold / nested
-  price table) / `usage` (token split counters) / `ledger` (per-call rows with
-  peak/off-peak rate) / `startedAt`
+  spRoot fallback), v2 shape: `config` (initial balance / threshold / API key /
+  nested price table) / `usage` (token split counters) / `ledger` (per-call
+  rows with peak/off-peak rate) / `startedAt`
 - Price matching: provider+model → same model under any provider → provider
   default → global default
 - Peak pricing: peak = Beijing 9–12, 14–18; otherwise off-peak (half price);
@@ -69,7 +71,10 @@ DSH Settings → "计费" section (or the expanded sidebar pill panel):
 ## Notes
 
 - **Only this machine's DSH model calls are metered**; the official balance
-  includes other channels, so re-anchor it periodically.
+  includes other channels, so re-sync it periodically.
+- **The API key is stored in plain text in the local ledger file** (same trust
+  model as `~/.dsh/dsh-ssh.json`, file mode 0600); sync requests go only to
+  `api.deepseek.com` and only balance fields are kept.
 - Token usage is counted split: cache-miss input (`inputTokens`), cache-hit
   input (`cacheReadTokens`), output (`outputTokens`).
 - Billing is an estimate; rates follow the official DeepSeek price list.
